@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  service:
+    build:
+      context: ./antibruteforce
+      dockerfile: Dockerfile.multistage
+    env_file:
+      - my.env
+    command:  ./abf grpc'
+    depends_on:
+      - test
+    restart: on-failure
+    networks:
+      - net
+
+  integration_test:
+    build: ./integration_test
+    env_file:
+      - my.env
+    depends_on:
+      - test
+      - service
+    command: "true"
+    networks:
+      - net
+
+  test:
+    image: postgres:11.2
+    env_file:
+      - my.env
+    networks:
+      - net
+    ports:
+      - "7676:5432"
+    volumes:
+      - ./antibruteforce/sql/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+networks:
+  net:
+    driver: bridge

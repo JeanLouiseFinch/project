@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+  service:
+    build:
+      context: ./antibruteforce
+      dockerfile: Dockerfile
+    env_file:
+      - my.env
+    command: go run main.go grpc
+    depends_on:
+      - db
+    restart: on-failure
+    volumes:
+      - ./antibruteforce:/code
+    ports:
+      - "50051:50051"
+    networks:
+      - net
+
+  db:
+    image: postgres:11.6
+    env_file:
+      - my.env
+    networks:
+      - net
+    ports:
+      - "7676:5432"
+    volumes:
+      - ./antibruteforce/sql/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+networks:
+  net:
+    driver: bridge
