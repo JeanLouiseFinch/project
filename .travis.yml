@@ -14,6 +14,4 @@ before_script:
   - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.17.1
 
 script:
-  - go fmt 
-  - go vet
-  - golangci-lint run
+  - golangci-lint run --enable-all
