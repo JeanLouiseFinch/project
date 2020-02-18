@@ -65,6 +65,4 @@ func TestDbRepo(t *testing.T) {
 			t.Fatal(err)
 		}
 	})
-	// ip:=net.ParseIP("192.168.0.254")
-
 }

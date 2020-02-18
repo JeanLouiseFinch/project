@@ -18,10 +18,10 @@ var addCmd = &cobra.Command{
 		container := BuildContainer()
 		err := container.Invoke(func(conf *config.GrpcConf) {
 			conn, err := newGrpcConnection(conf)
-			defer conn.Close()
 			if err != nil {
 				log.Fatal(err)
 			}
+			defer conn.Close()
 			server := grpcserver.NewAntiBruteForceClient(conn)
 			ctx := context.Background()
 			var typOfList grpcserver.List
@@ -40,7 +40,6 @@ var addCmd = &cobra.Command{
 				log.Fatal(err)
 			}
 			fmt.Println(status.Ok)
-			return
 		})
 		if err != nil {
 			log.Fatal(err)
@@ -56,10 +55,10 @@ var deleteCmd = &cobra.Command{
 		container := BuildContainer()
 		err := container.Invoke(func(conf *config.GrpcConf) {
 			conn, err := newGrpcConnection(conf)
-			defer conn.Close()
 			if err != nil {
 				log.Fatal(err)
 			}
+			defer conn.Close()
 			server := grpcserver.NewAntiBruteForceClient(conn)
 			ctx := context.Background()
 			req := &grpcserver.DeleteIpRequest{
@@ -85,10 +84,10 @@ var subnetCmd = &cobra.Command{
 		container := BuildContainer()
 		err := container.Invoke(func(conf *config.GrpcConf) {
 			conn, err := newGrpcConnection(conf)
-			defer conn.Close()
 			if err != nil {
 				log.Fatal(err)
 			}
+			defer conn.Close()
 			server := grpcserver.NewAntiBruteForceClient(conn)
 			ctx := context.Background()
 			subn := &grpcserver.GetSubnetRequest{

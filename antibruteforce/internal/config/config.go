@@ -22,6 +22,7 @@ func NewSettings() *Settings {
 	if err := env.Parse(c); err != nil {
 		log.Fatalf("%+v\n", err)
 	}
+
 	return c
 }
 
@@ -32,5 +33,6 @@ func CreateLogger(c *Settings) (logger *zap.Logger, err error) {
 	} else {
 		logger, err = zap.NewProduction()
 	}
+
 	return logger, err
 }

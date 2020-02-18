@@ -9,26 +9,7 @@ import (
 	"time"
 
 	"go.uber.org/zap"
-
-	"github.com/stretchr/testify/mock"
 )
-
-type MockedBucketStore struct {
-	mock.Mock
-}
-
-func (s *MockedBucketStore) Add(key string, bucket *entities.Bucket) error {
-	args := s.Called(key, bucket)
-	return args.Error(0)
-}
-func (s *MockedBucketStore) Delete(key string) error {
-	args := s.Called(key)
-	return args.Error(0)
-}
-func (s *MockedBucketStore) Get(key string) (*entities.Bucket, error) {
-	args := s.Called(key)
-	return args.Get(0).(*entities.Bucket), args.Error(1)
-}
 
 var bucketService *BucketService
 
@@ -47,7 +28,6 @@ func TestMain(m *testing.M) {
 }
 
 func TestGet(t *testing.T) {
-
 	var bucket *entities.Bucket
 	var err error
 	hash := entities.NewHash(entities.Login, "admin")
@@ -131,5 +111,4 @@ func TestMem(t *testing.T) {
 	if total := bucketService.TotalBuckets(); total != 0 {
 		t.Logf("bucket collector not working Total=%d should be 0", total)
 	}
-
 }

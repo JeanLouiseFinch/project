@@ -24,8 +24,18 @@ type RPCServer struct {
 }
 
 // NewRPCServer constructor for GRPC server
-func NewRPCServer(conf *config.GrpcConf, logger *zap.Logger, IPService ipusecase.IPUseCase, bucketService bucketusecase.BucketsUseCase, integratorService interactor.ConnectorUseCase) *RPCServer {
-	return &RPCServer{Conf: conf, Logger: logger, IPService: IPService, BucketService: bucketService, IntegratorService: integratorService}
+func NewRPCServer(conf *config.GrpcConf,
+	logger *zap.Logger,
+	IPService ipusecase.IPUseCase,
+	bucketService bucketusecase.BucketsUseCase,
+	integratorService interactor.ConnectorUseCase) *RPCServer {
+	return &RPCServer{
+		Conf:              conf,
+		Logger:            logger,
+		IPService:         IPService,
+		BucketService:     bucketService,
+		IntegratorService: integratorService,
+	}
 }
 
 // Start - init RPC server

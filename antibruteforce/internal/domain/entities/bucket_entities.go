@@ -58,6 +58,7 @@ func NewBucket(marker int, duration time.Duration, hash Hash, callback chan Hash
 	time.AfterFunc(duration, func() {
 		callback <- hash
 	})
+
 	return &Bucket{Marker: marker, Duration: duration}
 }
 
@@ -68,5 +69,6 @@ func (b *Bucket) Counter() bool {
 		b.Marker = 0
 		return false
 	}
+
 	return true
 }

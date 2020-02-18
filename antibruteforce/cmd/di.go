@@ -14,7 +14,9 @@ import (
 	"go.uber.org/zap"
 )
 
-func bucketService(store *bucketstore.BucketStore, settings *config.Settings, logger *zap.Logger) *bucketusecase.BucketService {
+func bucketService(store *bucketstore.BucketStore,
+	settings *config.Settings,
+	logger *zap.Logger) *bucketusecase.BucketService {
 	return bucketusecase.NewBucketService(store, settings, logger)
 }
 
@@ -26,7 +28,11 @@ func ineractor(ipService *ipusecase.IPService, bucketService *bucketusecase.Buck
 	return interactor.NewConnector(ipService, bucketService)
 }
 
-func grpcCast(conf *config.GrpcConf, logger *zap.Logger, IPService *ipusecase.IPService, bucketService *bucketusecase.BucketService, integratorService *interactor.Connector) *grpcserver.RPCServer {
+func grpcCast(conf *config.GrpcConf,
+	logger *zap.Logger,
+	IPService *ipusecase.IPService,
+	bucketService *bucketusecase.BucketService,
+	integratorService *interactor.Connector) *grpcserver.RPCServer {
 	return grpcserver.NewRPCServer(conf, logger, IPService, bucketService, integratorService)
 }
 

@@ -33,7 +33,11 @@ func NewDateBaseConf() *DateBaseConf {
 // postgres://myuser:mypass@localhost:5432/mydb?sslmode=verify­full
 // export POSTGRESQL_URL=postgres://calendar:123456@localhost:5432/calendar?sslmode=disable
 func DBConnection(c *DateBaseConf) (*sqlx.DB, error) {
-	var params = fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable", c.BdUser, c.BdName, c.BdHost, c.BdPassword)
+	var params = fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable",
+		c.BdUser,
+		c.BdName,
+		c.BdHost,
+		c.BdPassword)
 	db, err := sqlx.Connect("pgx", params)
 	return db, err
 }

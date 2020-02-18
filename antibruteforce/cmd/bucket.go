@@ -18,10 +18,10 @@ var bucketCmd = &cobra.Command{
 		container := BuildContainer()
 		err := container.Invoke(func(conf *config.GrpcConf) {
 			conn, err := newGrpcConnection(conf)
-			defer conn.Close()
 			if err != nil {
 				log.Fatal(err)
 			}
+			defer conn.Close()
 			server := grpcserver.NewAntiBruteForceClient(conn)
 			ctx := context.Background()
 			var typOfBucket grpcserver.BucketKind
@@ -47,11 +47,9 @@ var bucketCmd = &cobra.Command{
 				log.Fatal(err)
 			}
 			fmt.Printf("%s was reset status: %t \n", key, status.Ok)
-			return
 		})
 		if err != nil {
 			log.Fatal(err)
 		}
-		//container := BuildContainer()
 	},
 }
