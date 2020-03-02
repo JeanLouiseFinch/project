@@ -1,7 +1,8 @@
 language: go
 
-env: GO111MODULE=on
-
+env: 
+  GO111MODULE=on
+  GOROOT=""
 git:
   depth: 1
 
